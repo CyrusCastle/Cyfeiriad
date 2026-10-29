@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Cyfeiriad Referencing Guide</title>
+		<link rel="icon" type="image/png" href="icons/favicon.png">
+	</head>
+	<body>
+
+		<h1>Referencing with Cyfeiriad</h1>
+		<p>A guide to the Aberystwyth School of Education BibTeX style (version 0.9.0).</p>
+
+		<hr>
+
+		<h2>Preamble</h2>
+
+		<p>Download <code>cyfeiriad.sty</code> and <code>cyfeiriad.bst</code> into your LaTeX folder: <a target="_blank" href="https://github.com/CyrusCastle/Cyfeiriad/">https://github.com/CyrusCastle/Cyfeiriad/</a></p>
+		<p>Put the following in the preamble of your LaTeX document (before <code>\begin{document}</code>):</p>
+
+		<pre>
+		\usepackage{cyfeiriad}
+		</pre>
+
+		<p>Then, where you want the reference list to appear (usually at the end), list your <code>.bib</code> files:</p>
+
+		<pre>
+		\addcontentsline{toc}{section}{References}
+		\bibliography{references}
+		</pre>
+
+		<hr>
+
+		<h2>How To Cite</h2>
+
+		<h3>In your text</h3>
+
+		<ul>
+		<li><code>\citet{dillon1985}</code> gives Dillon (1985)</li>
+		<li><code>\citep{dillon1985}</code> gives (Dillon, 1985)</li>
+		<li><code>\citep[p.~12]{dillon1985}</code> gives (Dillon, 1985: p. 12)</li>
+		<li><code>\citep{dillon1985,wood1976}</code> cites several sources at once</li>
+		</ul>
+
+		<p>For sources with three or more authors, the first citation names them all, e.g. (Wood, Bruner and Ross, 1976), and later citations use "et al.", e.g. (Wood et al., 1976).</p>
+
+		<h3>In your .bib file</h3>
+
+		<p>Open each box to see the fields for that kind of source and an example. Some general rules:</p>
+		<ul>
+		<li>Write author and editor names as <code>Surname, I.</code>, separated by <code>and</code>.</li>
+		<li>Put an organisation's name in double braces, e.g. <code>{{Welsh Government}}</code>, so it isn't read as a person's name.</li>
+		<li><code>accessed</code> is written out in full, e.g. <code>8th November 2024</code>.</li>
+		<li>For a reprint or translation, give both years in <code>year</code>, e.g. <code>1887/1954</code>.</li>
+		<li>Any entry can also take <code>note</code> (extra text at the end) and <code>url</code> with <code>accessed</code>.</li>
+		</ul>
+
+		<details>
+		<summary>Journal Article</summary>
+		<p><b>Type:</b> <code>@article</code></p>
+		<p><b>Required:</b> author, title, journal, year</p>
+		<p><b>Optional:</b> volume, number, pages, publisher, address, url, accessed</p>
+		<p><b>Example:</b></p>
+		<pre>
+		@article{wood1976,
+		  title={The role of tutoring in problem solving},
+		  author={Wood, D. and Bruner, J. S. and Ross, G.},
+		  journal={Journal of Child Psychology and Psychiatry},
+		  volume={17},
+		  number={2},
+		  pages={89--100},
+		  year={1976}
+		}
+		</pre>
+		<p><b>Produces:</b> Wood, D., Bruner, J. S. and Ross, G. (1976), ‘The role of tutoring in problem solving’, <i>Journal of Child Psychology and Psychiatry</i>, vol. 17, no. 2, pp. 89–100.</p>
+		</details>
+
+		<details>
+		<summary>Book</summary>
+		<p><b>Type:</b> <code>@book</code></p>
+		<p><b>Required:</b> author (or editor), title, year</p>
+		<p><b>Optional:</b> publisher, address (place of publication), edition (a number, e.g. <code>2</code>), volume, series, number, translator, url, accessed</p>
+		<p><b>Example:</b></p>
+		<pre>
+		@book{engestrom2015,
+		  author = {Engestr\"om, Y.},
+		  year = {2015},
+		  title = {Learning by Expanding: An Activity-Theoretical Approach to Developmental Research},
+		  publisher = {Cambridge University Press},
+		  address = {Cambridge},
+		  edition = {2}
+		}
+		</pre>
+		<p><b>Produces:</b> Engeström, Y. (2015), <i>Learning by Expanding: An Activity-Theoretical Approach to Developmental Research</i>, (2<sup>nd</sup> Edition), Cambridge: Cambridge University Press.</p>
+		</details>
+
+		<details>
+		<summary>Translated Book</summary>
+		<p><b>Type:</b> <code>@book</code></p>
+		<p><b>Required:</b> author, title, year, translator</p>
+		<p><b>Optional:</b> as for Book. Give the original and translation years together in <code>year</code>.</p>
+		<p><b>Example:</b></p>
+		<pre>
+		@book{marx1887,
+		  author = {Marx, K.},
+		  translator = {Moore, S. and Aveling, E.},
+		  year = {1887/1954},
+		  title = {Capital: A critical analysis of Capitalist Production --- Volume I},
+		  publisher = {Progress Publishers},
+		  address = {Moscow, Russia},
+		}
+		</pre>
+		<p><b>Produces:</b> Marx, K. (1887/1954), <i>Capital: A critical analysis of Capitalist Production — Volume I</i>, translated by Moore, S. and Aveling, E., Moscow, Russia: Progress Publishers.</p>
+		</details>
+
+		<details>
+		<summary>Chapter in an Edited Book</summary>
+		<p><b>Type:</b> <code>@incollection</code></p>
+		<p><b>Required:</b> author, title (of the chapter), booktitle (of the book), year</p>
+		<p><b>Optional:</b> editor, publisher, address, pages, chapter, edition, translator, volume, series</p>
+		<p><b>Example:</b></p>
+		<pre>
+		@incollection{vygotsky1930,
+			title        = {Tool and symbol in child development},
+			author       = {Vygotsky, L. S. and Luria, A.},
+			year         = {1930/1999},
+			booktitle    = {The Vygotsky Reader},
+			publisher    = {Blackwell},
+			address      = {Oxford},
+			pages        = {99--174},
+			editor       = {van der Veer, R. and Valsiner, J.},
+			translator   = {Prout, T.}
+		}
+		</pre>
+		<p><b>Produces:</b> Vygotsky, L. S. and Luria, A. (1930/1999), ‘Tool and symbol in child development’, in van der Veer, R. and Valsiner, J. (eds.) <i>The Vygotsky Reader</i>, translated by Prout, T., Oxford: Blackwell, pp. 99–174.</p>
+		</details>
+
+		<details>
+		<summary>Conference Paper</summary>
+		<p><b>Type:</b> <code>@inproceedings</code> (<code>@conferencepaper</code> also works and gives the same result)</p>
+		<p><b>Required:</b> author, title, booktitle (of the proceedings), year</p>
+		<p><b>Optional:</b> editor, conference (name of the event), conferenceaddress (where it was held), day, month, pages, publisher, address, organization, series, volume</p>
+		<p><b>Example with full conference details:</b></p>
+		<pre>
+		@inproceedings{beynon2017,
+			author      = {Beynon, M.},
+			title       = {Mindstorms Revisited: Making New Construals of Seymour Papert’s Legacy},
+			booktitle   = {Educational Robotics in the Makers Era},
+			editor      = {Alimisis, D. and Moro, M. and Menegatti, E.},
+			pages       = {1--14},
+			conference  = {Edurobotics 2016},
+			conferenceaddress = {Athens},
+			day         = {25},
+			month       = {November},
+			year        = {2017},
+			series      = {Advances in Intelligent Systems and Computing},
+			volume      = {560},
+			publisher   = {Springer},
+			address     = {Cham, Switzerland},
+		}
+		</pre>
+		<p><b>Produces:</b> Beynon, M. (2017), ‘Mindstorms Revisited: Making New Construals of Seymour Papert’s Legacy’, in Alimisis, D., Moro, M. and Menegatti, E. (eds.) <i>Educational Robotics in the Makers Era</i>, Edurobotics 2016. Athens, 25<sup>th</sup> November, Vol. 560 of <i>Advances in Intelligent Systems and Computing</i>, Cham, Switzerland: Springer, pp. 1–14.</p>
+		<p><b>Simpler example:</b></p>
+		<pre>
+		@conferencepaper{lindgren2018,
+			author         = {Lindgren, I. and van Veenstra, A. F.},
+			title          = {Digital government transformation: a case illustrating public e-service development as part of public sector transformation},
+			booktitle      = {Proceedings of the 19th Annual International Conference on Digital Government Research},
+			year           = {2018},
+			pages          = {1--6},
+			month          = {May},
+			address        = {Delft, the Netherlands},
+			publisher      = {Digital Government Society}
+		}
+		</pre>
+		<p><b>Produces:</b> Lindgren, I. and van Veenstra, A. F. (2018), ‘Digital government transformation: a case illustrating public e-service development as part of public sector transformation’, in <i>Proceedings of the 19th Annual International Conference on Digital Government Research</i>, May, Delft, the Netherlands: Digital Government Society, pp. 1–6.</p>
+		</details>
+
+		<details>
+		<summary>PhD Thesis</summary>
+		<p><b>Type:</b> <code>@phdthesis</code> (use <code>@mastersthesis</code> for a master's dissertation, with the same fields)</p>
+		<p><b>Required:</b> author, title, school (the university), year</p>
+		<p><b>Optional:</b> address, type (replaces the words "PhD thesis"), url, accessed</p>
+		<p><b>Example:</b></p>
+		<pre>
+		@phdthesis{wellington1988,
+			author = {Wellington, J. J.},
+			title = {Information technology in education and employment: A critical examination of developments in both areas and the relationship between them},
+			school = {University of Sheffield},
+			year = {1988}
+		}
+		</pre>
+		<p><b>Produces:</b> Wellington, J. J. (1988), <i>Information technology in education and employment: A critical examination of developments in both areas and the relationship between them</i>, PhD thesis, University of Sheffield.</p>
+		</details>
+
+		<details>
+		<summary>Online Website</summary>
+		<p><b>Type:</b> <code>@misc</code></p>
+		<p><b>Required:</b> author, title, year, url, accessed</p>
+		<p><b>Optional:</b> howpublished</p>
+		<p><b>Example:</b></p>
+		<pre>
+		@misc{thatcher1981,
+		  author = {Thatcher, M.},
+		  title = {Speech on microcomputers in schools},
+		  year = {1981},
+		  accessed = {13th November 2024},
+		  url = {https://www.margaretthatcher.org/document/104609}
+		}
+		</pre>
+		<p><b>Produces:</b> Thatcher, M. (1981), ‘Speech on microcomputers in schools’, [online] Available at https://www.margaretthatcher.org/document/104609 [Accessed: 13th November 2024].</p>
+		</details>
+
+		<details>
+		<summary>Newspaper or Magazine Article</summary>
+		<p><b>Type:</b> <code>@newspaper</code></p>
+		<p><b>Required:</b> title (of the article), booktitle (name of the paper), year</p>
+		<p><b>Optional:</b> author (or the editor, if no author is given), day, month, volume, howpublished, url, accessed</p>
+		<p><b>Example:</b></p>
+		<pre>
+		@newspaper{megarry1985,
+			title = {Government attack},
+			booktitle = {Times Educational Supplement},
+			author = {Megarry, J.},
+			day = {16},
+			month = {November},
+			year = {1985},
+			accessed = {21st November 2024},
+			url = {https://archive.org/details/TESGlobal1985UKEnglish/Nov%2016%201985%2C%20The%20Times%20Educational%20Supplement%2C%20%233620%2C%20UK%20%28en%29/page/n17/mode/2up?view=theater}
+		}
+		</pre>
+		<p><b>Produces:</b> Megarry, J. (1985), ‘Government attack’, in <i>Times Educational Supplement</i>, 16<sup>th</sup> November, [online] Available at https://archive.org/details/TESGlobal1985UKEnglish/… [Accessed: 21st November 2024].</p>
+		</details>
+
+		<details>
+		<summary>Archive Document</summary>
+		<p><b>Type:</b> <code>@archives</code></p>
+		<p><b>Required:</b> author, title, year, institution (the archive holding it), number (its catalogue reference)</p>
+		<p><b>Optional:</b> booktitle (the file or collection it sits in), pages, publisher, address, url, accessed</p>
+		<p><b>Example:</b></p>
+		<pre>
+		@archives{kewgardens:7a:a,
+			title        = {{MEP. THE CURRENT POSITION AND THE WAY FORWARD}},
+			author       = {Lewis, P.},
+			year         = {1984},
+			booktitle    = {Departmental Line on the Future of MEP},
+			pages        = {1--12},
+			institution  = {The National Archives},
+			number       = {ED 269/247/1}
+		}
+		</pre>
+		<p><b>Produces:</b> Lewis, P. (1984), ‘MEP. THE CURRENT POSITION AND THE WAY FORWARD’, in <i>Departmental Line on the Future of MEP</i>, pp. 1–12, archived in The National Archives under catalogue reference ED 269/247/1.</p>
+		</details>
+
+		<details>
+		<summary>Television Programme</summary>
+		<p><b>Type:</b> <code>@television</code></p>
+		<p><b>Required:</b> title (of the episode), booktitle (of the programme), year</p>
+		<p><b>Optional:</b> publisher (the channel), volume (series number), number (episode number), day, month, url, accessed</p>
+		<p><b>Example:</b></p>
+		<pre>
+		@television{microlive:s2:e5,
+			title = {Garth Hill School OB},
+			booktitle = {Micro Live},
+			publisher = {BBC2},
+			volume = {2},
+			number = {5},
+			day = {8},
+			month = {November},
+			year = {1985},
+			accessed = {8th November 2024},
+			url = {https://clp.bbcrewind.co.uk/b25127e044c1e4813698a8264d11aaa0}
+		}
+		</pre>
+		<p><b>Produces:</b> ‘Garth Hill School OB’ (1985), <i>Micro Live</i>, BBC2, Series 2, Episode 5, 8<sup>th</sup> November, [online] Available at https://clp.bbcrewind.co.uk/b25127e044c1e4813698a8264d11aaa0 [Accessed: 8th November 2024].</p>
+		</details>
+
+		<details>
+		<summary>UK Act of Parliament</summary>
+		<p><b>Type:</b> <code>@britishlaw</code></p>
+		<p><b>Required:</b> title (without the year), year, chapter (the chapter number only)</p>
+		<p><b>Optional:</b> url, accessed</p>
+		<p><b>Example:</b></p>
+		<pre>
+		@britishlaw{law:wales:1998,
+			title = {Government of Wales Act},
+			year = {1998},
+			chapter = {38},
+			url = {https://www.legislation.gov.uk/ukpga/1998/38/contents},
+			accessed = {15th April 2025}
+		}
+		</pre>
+		<p><b>Produces:</b> <i>Government of Wales Act 1998 c.38</i>, [online] Available at https://www.legislation.gov.uk/ukpga/1998/38/contents [Accessed: 15th April 2025].</p>
+		<p>In the text, this is cited as Government of Wales Act (1998).</p>
+		</details>
+
+		<details>
+		<summary>Welsh Act or Statutory Instrument</summary>
+		<p><b>Type:</b> <code>@devolvedlaw</code></p>
+		<p><b>Required:</b> title (without the year), year, chapter (the full reference, e.g. <code>anaw 2</code>, <code>asc 4</code> or <code>No. 707 (W. 86)</code>)</p>
+		<p><b>Optional:</b> url, accessed</p>
+		<p><b>Example:</b></p>
+		<pre>
+		@devolvedlaw{law:aln:2018,
+			title = {Additional Learning Needs and Education Tribunal (Wales) Act},
+			year = {2018},
+			chapter = {anaw 2},
+			url = {https://www.legislation.gov.uk/anaw/2018/2/contents},
+			accessed = {1st February 2025}
+		}
+		</pre>
+		<p><b>Produces:</b> <i>Additional Learning Needs and Education Tribunal (Wales) Act 2018 (anaw 2)</i>, [online] Available at https://www.legislation.gov.uk/anaw/2018/2/contents [Accessed: 1st February 2025].</p>
+		</details>
+
+		<hr>
+
+		<h2>Additional Hints</h2>
+
+		<details>
+		<summary>Organisation as Author (with abbreviation)</summary>
+		<p><b>Type:</b> any; usually <code>@misc</code> for online reports</p>
+		<p><b>Required:</b> the organisation's name in double braces as author</p>
+		<p><b>Optional:</b> shortauthor, an abbreviation used in citations after the first</p>
+		<p><b>Example:</b></p>
+		<pre>
+		@misc{ec:desi:uk:2019,
+			author = {{European Commission}},
+			shortauthor = {{EC}},
+			title = {Digital Economy and Society Index (DESI) 2019 Country Report: United Kingdom},
+			year = {2019},
+			accessed = {25th March 2025},
+			url = {https://ec.europa.eu/newsroom/dae/document.cfm?doc_id=59910}
+		}
+		</pre>
+		<p><b>Produces:</b> European Commission (2019), ‘Digital Economy and Society Index (DESI) 2019 Country Report: United Kingdom’, [online] Available at https://ec.europa.eu/newsroom/dae/document.cfm?doc_id=59910 [Accessed: 25th March 2025].</p>
+		<p>In the text, the first citation reads (European Commission, 2019) and later ones (EC, 2019).</p>
+		</details>
+
+		<details>
+		<summary>Same Author, Same Year (choosing the a/b order)</summary>
+		<p>When an author has more than one source in the same year, letters are added automatically (2000a, 2000b), in alphabetical order of title. To choose the order yourself, add <code>forceextralabel</code> to the entries.</p>
+		<p><b>Field:</b> forceextralabel, a letter (<code>a</code>, <code>b</code>, ...), which is printed after the year and sets the order. It can also be other text, e.g. <code>{~[Welsh trans.]}</code> and <code>{~[English trans.]}</code> to between translations of a document, or <code>{~\upshape(25~Jan)}</code> to include dates i.e. for Hansard debates. Entries with a forced letter come first; any without one continue from the last forced letter.</p>
+		<p><b>Note:</b> if you are using forceextralabel for a group of documents, i.e. multiple documents by Rose and Meyer (2000), then you really ought to use forceextralabel for the entire group of documents covered by Rose and Meyer in 2000. It is not necessary, but will make the process smoother.</p>
+		<p><b>Example:</b></p>
+		<pre>
+		@article{rose2000:firstwork,
+		  title={Universal Design for Learning},
+		  author={Rose, D. and Meyer, A.},
+		  journal={Journal of Special Education Technology},
+		  volume={15},
+		  number={1},
+		  pages={67--70},
+		  year={2000},
+		  forceextralabel = {a},
+		}
+
+		@book{rose2000:technology,
+		  author = {Rose, D. and Meyer, A.},
+		  year = {2000},
+		  forceextralabel = {b},
+		  title = {The Future is in the Margins: The Role of Technology and Disability in Educational Reform},
+		  publisher = {Center for Applied Special Technology},
+		  address = {Peabody, USA}
+		}
+		</pre>
+		<p><b>Produces:</b></p>
+		<p>Rose, D. and Meyer, A. (2000<i>a</i>), ‘Universal Design for Learning’, <i>Journal of Special Education Technology</i>, vol. 15, no. 1, pp. 67–70.</p>
+		<p>Rose, D. and Meyer, A. (2000<i>b</i>), <i>The Future is in the Margins: The Role of Technology and Disability in Educational Reform</i>, Peabody, USA: Center for Applied Special Technology.</p>
+		</details>
+
+		<details>
+		<summary>Ibid. (citing the same source again)</summary>
+		<p><b>Command:</b> <code>\ibid[page]{key}</code></p>
+		<p><b>Required:</b> key (the cite key of the source you are repeating)</p>
+		<p><b>Optional:</b> page, written as in <code>\citep</code>, e.g. <code>p.~14</code></p>
+		<p><b>Example:</b></p>
+		<pre>
+		\citep{dillon1985} ... \ibid{dillon1985} ... \ibid[p.~14]{dillon1985}
+		</pre>
+		<p><b>Produces:</b> (Dillon, 1985) ... (<i>ibid.</i>) ... (<i>ibid.</i>: p. 14)</p>
+		<p>If you load <code>hyperref</code>, "ibid." links to the reference.</p>
+		</details>
+
+		<hr>
+
+		<p>Also supported, without examples here: <code>@inbook</code> (a chapter of a single-authored book: the Book fields plus chapter and/or pages), <code>@mastersthesis</code>, <code>@techreport</code>, <code>@manual</code>, <code>@booklet</code>, <code>@proceedings</code> and <code>@unpublished</code>. Any other entry type is treated as <code>@misc</code>.</p>
+
+	</body>
+</html>

@@ -1,0 +1,91 @@
+%% cyfeiriad.sty
+%% Referencing in the Aberystwyth School of Education style.
+%%
+%% USAGE
+%%   \usepackage{cyfeiriad}                      ordinals (5th) with superscript `th'
+%%   \usepackage[inlineordinals]{cyfeiriad}      'th' as regular text
+%%   ...
+%%   \bibliography{mybib}                        at the end; do NOT add \bibliographystyle
+%%
+%%   Load hyperref (if you use it) AFTER cyfeiriad, so that citations become links.
+%%
+%% CITATION COMMANDS (natbib)
+%%   \citet{key}                     Castle (2015)
+%%   \citet[p.~12]{key}              Castle (2015: p. 12)
+%%   \citep{key}                     (Castle, 2015)
+%%   \citep[p.~12]{key}              (Castle, 2015: p. 12)
+%%
+%% IBIDEM COMMANDS (this package)
+%%   \ibid{key}                      (ibid.)
+%%   \ibid[p.~12]{key}               (ibid.: p. 12)
+%%   \citedisguised{key}{text}       text (2015)
+%%   \citedisguised[p.~12]{key}{text} text (2015: p. 12)
+%%   With hyperref loaded, "ibid." and the disguised text link to the reference.
+%%
+%% This work may be distributed and/or modified under the conditions of the LaTeX Project Public
+%% License, version 1.3c or later (https://www.latex-project.org/lppl.txt).
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cyfeiriad}[2026/10/29 v0.9.0 Aberystwyth School of Education referencing]
+
+%% OPTIONS
+
+\newif\ifaber@superordinals
+\aber@superordinalstrue
+\DeclareOption{inlineordinals}{\aber@superordinalsfalse}
+\DeclareOption*{\PackageWarning{cyfeiriad}{Unknown option `\CurrentOption' ignored}}
+\ProcessOptions\relax
+
+%% PACKAGES
+
+\@ifpackageloaded{natbib}
+  {\NAT@longnamestrue}
+  {\RequirePackage[longnamesfirst]{natbib}}
+
+\@ifpackageloaded{nth}
+  {}
+  {\ifaber@superordinals
+     \RequirePackage[super]{nth}
+   \else
+     \RequirePackage{nth}
+   \fi}
+
+\RequirePackage{url}
+
+%% CITATION STYLE
+
+\setcitestyle{authoryear,round,notesep={: },aysep={,}}
+\bibliographystyle{cyfeiriad}
+
+\renewcommand\bibliographystyle[1]{%
+  \PackageWarning{cyfeiriad}{\string\bibliographystyle{#1} ignored:\MessageBreak
+    cyfeiriad already sets the bibliography style}}
+
+%% IBIDEM COMMANDS
+
+\newcommand\aber@ifempty[1]{%
+  \if\relax\detokenize{#1}\relax
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi}
+
+\newcommand\aber@citelink[2]{%
+  \ifdefined\hyperlink
+    \hyperlink{cite.#1}{#2}%
+  \else
+    #2%
+  \fi}
+
+\newcommand\ibid[2][]{%
+  \NAT@open\textit{\aber@citelink{#2}{ibid.}}%
+  \aber@ifempty{#1}{}{\NAT@cmt#1}%
+  \NAT@close}
+
+\newcommand\citedisguised[3][]{%
+  \aber@citelink{#2}{#3} %
+  \aber@ifempty{#1}
+    {\citeyearpar{#2}}
+    {\citeyearpar[#1]{#2}}}
+
+\endinput
