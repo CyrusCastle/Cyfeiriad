@@ -380,6 +380,18 @@
 		<p>If you load <code>hyperref</code>, "ibid." links to the reference.</p>
 		</details>
 
+		<details>
+		<summary>Possessive Citations</summary>
+		<p><b>Command:</b> <code>\citepossessive[page]{key}</code></p>
+		<p><b>Required:</b> key</p>
+		<p><b>Optional:</b> page, written as in <code>\citep</code>, e.g. <code>p.~14</code></p>
+		<p><b>Example:</b></p>
+		<pre>
+		... the primary features of \citepossessive{dewey1916} pragmatism ...
+		</pre>
+		<p><b>Produces:</b> ... the primary features of Dewey's (1916) pragmatism ...</p>
+		</details>
+
 		<hr>
 
 		<p>Also supported, without examples here: <code>@inbook</code> (a chapter of a single-authored book: the Book fields plus chapter and/or pages), <code>@mastersthesis</code>, <code>@techreport</code>, <code>@manual</code>, <code>@booklet</code>, <code>@proceedings</code> and <code>@unpublished</code>. Any other entry type is treated as <code>@misc</code>.</p>
